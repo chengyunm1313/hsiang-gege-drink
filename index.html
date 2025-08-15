@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>享哥哥手搖飲訂購系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🥤 享哥哥手搖飲 - 旺情鳳梨</h1>
+            <p>HPP 鮮榨梨可樂達 | 夏日限定特調</p>
+            <div class="promo-badge">🍍 一般街邊店版本</div>
+            <div class="practice-notice">
+                <small>📚 VibeCoding 練習用 | 非正式經營</small>
+            </div>
+        </header>
+
+        <!-- 一頁式銷售頁 -->
+        <div class="main-content">
+            <!-- 客戶資料區 -->
+            <div class="form-section">
+                <h2>📋 基本資料</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customerName">姓名 *</label>
+                        <input type="text" id="customerName" name="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">電話號碼 *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">電子郵件 *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+
+            <!-- 商品選擇區 -->
+            <div class="form-section">
+                <div class="section-header">
+                    <h2>🧊 選擇飲料</h2>
+                    <button type="button" id="viewCart" class="cart-btn">
+                        🛒 購物車 (<span id="cartCount">0</span>)
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="drinkCategory">飲料類別 *</label>
+                    <select id="drinkCategory" name="drinkCategory">
+                        <option value="">請選擇類別</option>
+                        <option value="旺情鳳梨">🍍 旺情鳳梨</option>
+                        <option value="經典綠茶">🍃 經典綠茶</option>
+                        <option value="激推水果茶">🍋 激推水果茶</option>
+                        <option value="秋冬暖胃茶">🧊 秋冬暖胃茶</option>
+                        <option value="獨門強沙冰">🥤 獨門強沙冰</option>
+                        <option value="茶奶雙響炮">🥛 茶奶雙響炮</option>
+                        <option value="品味咖啡紅茶">☕ 品味咖啡紅茶</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="drinkName">飲料品項 *</label>
+                    <select id="drinkName" name="drinkName">
+                        <option value="">請先選擇類別</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="size">尺寸 *</label>
+                        <select id="size" name="size">
+                            <option value="M" selected>中杯 (M)</option>
+                            <option value="L">大杯 (L)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">數量 *</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="10" value="1">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ice">冰塊 *</label>
+                        <select id="ice" name="ice">
+                            <option value="正常冰">🧊 正常冰</option>
+                            <option value="少冰">🧊 少冰</option>
+                            <option value="微冰">🧊 微冰</option>
+                            <option value="去冰" selected>❄️ 去冰</option>
+                            <option value="熱飲">🔥 熱飲</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sugar">甜度 *</label>
+                        <select id="sugar" name="sugar">
+                            <option value="正常糖">🍯 正常糖</option>
+                            <option value="七分糖">🍯 七分糖</option>
+                            <option value="半糖">🍯 半糖</option>
+                            <option value="三分糖">🍯 三分糖</option>
+                            <option value="微糖" selected>🍯 微糖</option>
+                            <option value="無糖">🚫 無糖</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">特殊需求</label>
+                    <textarea id="notes" name="notes" rows="2" placeholder="例如：珍珠加量、特殊需求等..."></textarea>
+                </div>
+
+                <div class="price-display">
+                    <span>單價: NT$ <span id="unitPrice">0</span></span>
+                    <span>小計: NT$ <span id="itemTotal">0</span></span>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" id="addToCart" class="add-cart-btn" disabled>➕ 加入購物車</button>
+                    <button type="button" id="clearItem" class="clear-btn">🗑️ 清除</button>
+                </div>
+            </div>
+
+            <!-- 購物車區 -->
+            <div id="cartSection" class="cart-section">
+                <div class="section-header">
+                    <h2>🛒 購物車</h2>
+                    <div class="cart-total-display">
+                        總計: NT$ <span id="cartTotalHeader">0</span>
+                    </div>
+                </div>
+
+                <div id="cartItems" class="cart-items">
+                    <div class="empty-cart">
+                        <p>購物車是空的，請先選購飲料</p>
+                    </div>
+                </div>
+
+                <div id="cartSummary" class="cart-summary hidden">
+                    <div class="summary-row">
+                        <span>商品總計：</span>
+                        <span>NT$ <span id="cartSubtotal">0</span></span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>總金額：</span>
+                        <span>NT$ <span id="cartTotal">0</span></span>
+                    </div>
+
+                    <div class="checkout-actions">
+                        <button type="button" id="clearCart" class="clear-cart-btn">🗑️ 清空購物車</button>
+                        <button type="button" id="checkout" class="checkout-btn">💳 立即結帳</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>正在處理您的訂單...</p>
+        </div>
+
+        <div id="success" class="success-message hidden">
+            <h2>✅ 訂單成功！</h2>
+            <p>感謝您的訂購！我們已將訂單詳情發送至您的電子郵件。</p>
+            <button onclick="resetForm()" class="reset-btn">再次訂購</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="promo-info">
+            <div class="promo-item">
+                <span class="promo-icon">🎯</span>
+                <span>滿好友滿意度調查 +10元</span>
+            </div>
+            <div class="promo-note">
+                ※ 本活動僅限 7/1起/滿意度調查內容請洽
+            </div>
+        </div>
+        <div class="store-info">
+            <h3>🏪 享哥哥手搖飲</h3>
+            <p>新鮮現調 品質保證</p>
+            <div class="practice-footer">
+                <p style="font-size: 0.8em; opacity: 0.7; margin-top: 10px;">
+                    📚 本網站為 VibeCoding 程式練習作品<br>
+                    僅供學習展示用途，非正式經營店家
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
