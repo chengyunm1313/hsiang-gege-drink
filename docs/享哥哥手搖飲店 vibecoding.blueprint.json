@@ -1,0 +1,1100 @@
+{
+    "name": "享哥哥手搖飲店 vibecoding",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 1213831,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 150
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "coco-drink webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "customerName",
+                        "type": "text"
+                    },
+                    {
+                        "name": "email",
+                        "type": "text"
+                    },
+                    {
+                        "name": "phone",
+                        "type": "text"
+                    },
+                    {
+                        "name": "drinkCategory",
+                        "type": "text"
+                    },
+                    {
+                        "name": "drinkName",
+                        "type": "text"
+                    },
+                    {
+                        "name": "size",
+                        "type": "text"
+                    },
+                    {
+                        "name": "ice",
+                        "type": "text"
+                    },
+                    {
+                        "name": "sugar",
+                        "type": "text"
+                    },
+                    {
+                        "name": "quantity",
+                        "type": "number"
+                    },
+                    {
+                        "name": "notes",
+                        "type": "text"
+                    },
+                    {
+                        "name": "unitPrice",
+                        "type": "number"
+                    },
+                    {
+                        "name": "totalPrice",
+                        "type": "number"
+                    },
+                    {
+                        "name": "orderTime",
+                        "type": "text"
+                    },
+                    {
+                        "name": "orderId",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 150
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 2,
+                            "module": "google-sheets:addRow",
+                            "version": 2,
+                            "parameters": {
+                                "__IMTCONN__": 1356214
+                            },
+                            "filter": {
+                                "name": "儲存資料",
+                                "conditions": []
+                            },
+                            "mapper": {
+                                "from": "drive",
+                                "mode": "select",
+                                "values": {
+                                    "0": "{{1.orderId}}",
+                                    "1": "{{1.orderTime}}",
+                                    "2": "{{1.customerName}}",
+                                    "3": "{{1.email}}",
+                                    "4": "{{1.phone}}",
+                                    "5": "{{1.customerTier}}",
+                                    "6": "{{1.itemTypes}}",
+                                    "7": "{{1.totalItems}}",
+                                    "8": "{{1.totalAmount}}",
+                                    "9": "{{1.avgPrice}}",
+                                    "10": "{{1.categoryList}}",
+                                    "11": "{{1.itemsDetail}}",
+                                    "12": "{{1.icePreference}}",
+                                    "13": "{{1.sugarPreference}}",
+                                    "14": "{{1.firstDrink}}",
+                                    "15": "{{1.orderSummary}}"
+                                },
+                                "sheetId": "工作表1",
+                                "spreadsheetId": "/1usNTfyZr4n9Kq-7g-ufAM8a_gQdFlfb5/1-et3IPpHZmVjyCLtIHwUwn_9nUGsGWDo/1hDEPP5kD1XcoHf2yaZcGuuLAOD6It1PX/1YrFnkRhYY7JnXU5vFRVZD_ODKQiVt7la/1OdGOFOR52osJMD7_uXdfKx074nC-3Yx_K8rmZ8JwqI8",
+                                "includesHeaders": true,
+                                "insertDataOption": "INSERT_ROWS",
+                                "valueInputOption": "USER_ENTERED",
+                                "insertUnformatted": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 600,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "from": {
+                                            "label": "My Drive"
+                                        },
+                                        "mode": {
+                                            "label": "Search by path"
+                                        },
+                                        "sheetId": {
+                                            "label": "工作表1"
+                                        },
+                                        "spreadsheetId": {
+                                            "path": [
+                                                "AI application",
+                                                "make AI",
+                                                "vibecoding",
+                                                "coco-order-system",
+                                                "CoCo 飲料訂購系統"
+                                            ]
+                                        },
+                                        "includesHeaders": {
+                                            "label": "Yes",
+                                            "nested": [
+                                                {
+                                                    "name": "values",
+                                                    "spec": [
+                                                        {
+                                                            "name": "0",
+                                                            "type": "text",
+                                                            "label": "訂單編號 (A)"
+                                                        },
+                                                        {
+                                                            "name": "1",
+                                                            "type": "text",
+                                                            "label": "訂購時間 (B)"
+                                                        },
+                                                        {
+                                                            "name": "2",
+                                                            "type": "text",
+                                                            "label": "客戶姓名 (C)"
+                                                        },
+                                                        {
+                                                            "name": "3",
+                                                            "type": "text",
+                                                            "label": "電子郵件 (D)"
+                                                        },
+                                                        {
+                                                            "name": "4",
+                                                            "type": "text",
+                                                            "label": "電話號碼 (E)"
+                                                        },
+                                                        {
+                                                            "name": "5",
+                                                            "type": "text",
+                                                            "label": "客戶等級 (F)"
+                                                        },
+                                                        {
+                                                            "name": "6",
+                                                            "type": "text",
+                                                            "label": "商品種類數 (G)"
+                                                        },
+                                                        {
+                                                            "name": "7",
+                                                            "type": "text",
+                                                            "label": "商品總杯數 (H)"
+                                                        },
+                                                        {
+                                                            "name": "8",
+                                                            "type": "text",
+                                                            "label": "訂單總金額 (I)"
+                                                        },
+                                                        {
+                                                            "name": "9",
+                                                            "type": "text",
+                                                            "label": "平均單價 (J)"
+                                                        },
+                                                        {
+                                                            "name": "10",
+                                                            "type": "text",
+                                                            "label": "商品分類 (K)"
+                                                        },
+                                                        {
+                                                            "name": "11",
+                                                            "type": "text",
+                                                            "label": "商品明細 (L)"
+                                                        },
+                                                        {
+                                                            "name": "12",
+                                                            "type": "text",
+                                                            "label": "冰塊偏好 (M)"
+                                                        },
+                                                        {
+                                                            "name": "13",
+                                                            "type": "text",
+                                                            "label": "甜度偏好 (N)"
+                                                        },
+                                                        {
+                                                            "name": "14",
+                                                            "type": "text",
+                                                            "label": "第一商品 (O)"
+                                                        },
+                                                        {
+                                                            "name": "15",
+                                                            "type": "text",
+                                                            "label": "訂單摘要 (P)"
+                                                        },
+                                                        {
+                                                            "name": "16",
+                                                            "type": "text",
+                                                            "label": "(Q)"
+                                                        },
+                                                        {
+                                                            "name": "17",
+                                                            "type": "text",
+                                                            "label": "(R)"
+                                                        },
+                                                        {
+                                                            "name": "18",
+                                                            "type": "text",
+                                                            "label": "(S)"
+                                                        },
+                                                        {
+                                                            "name": "19",
+                                                            "type": "text",
+                                                            "label": "(T)"
+                                                        },
+                                                        {
+                                                            "name": "20",
+                                                            "type": "text",
+                                                            "label": "(U)"
+                                                        },
+                                                        {
+                                                            "name": "21",
+                                                            "type": "text",
+                                                            "label": "(V)"
+                                                        },
+                                                        {
+                                                            "name": "22",
+                                                            "type": "text",
+                                                            "label": "(W)"
+                                                        },
+                                                        {
+                                                            "name": "23",
+                                                            "type": "text",
+                                                            "label": "(X)"
+                                                        },
+                                                        {
+                                                            "name": "24",
+                                                            "type": "text",
+                                                            "label": "(Y)"
+                                                        },
+                                                        {
+                                                            "name": "25",
+                                                            "type": "text",
+                                                            "label": "(Z)"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Values"
+                                                }
+                                            ]
+                                        },
+                                        "insertDataOption": {
+                                            "mode": "chose",
+                                            "label": "Insert rows"
+                                        },
+                                        "valueInputOption": {
+                                            "mode": "chose",
+                                            "label": "User entered"
+                                        },
+                                        "insertUnformatted": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "My Google connection (chengyunm1313@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "mode",
+                                        "type": "select",
+                                        "label": "Search Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "select",
+                                                "fromAll",
+                                                "map"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "insertUnformatted",
+                                        "type": "boolean",
+                                        "label": "Unformatted",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "valueInputOption",
+                                        "type": "select",
+                                        "label": "Value input option",
+                                        "validate": {
+                                            "enum": [
+                                                "USER_ENTERED",
+                                                "RAW"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "insertDataOption",
+                                        "type": "select",
+                                        "label": "Insert data option",
+                                        "validate": {
+                                            "enum": [
+                                                "INSERT_ROWS",
+                                                "OVERWRITE"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "spreadsheetId",
+                                        "type": "file",
+                                        "label": "Spreadsheet ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "sheetId",
+                                        "type": "select",
+                                        "label": "Sheet Name",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "includesHeaders",
+                                        "type": "select",
+                                        "label": "Table contains headers",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                true,
+                                                false
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "values",
+                                        "spec": [
+                                            {
+                                                "name": "0",
+                                                "type": "text",
+                                                "label": "訂單編號 (A)"
+                                            },
+                                            {
+                                                "name": "1",
+                                                "type": "text",
+                                                "label": "訂購時間 (B)"
+                                            },
+                                            {
+                                                "name": "2",
+                                                "type": "text",
+                                                "label": "客戶姓名 (C)"
+                                            },
+                                            {
+                                                "name": "3",
+                                                "type": "text",
+                                                "label": "電子郵件 (D)"
+                                            },
+                                            {
+                                                "name": "4",
+                                                "type": "text",
+                                                "label": "電話號碼 (E)"
+                                            },
+                                            {
+                                                "name": "5",
+                                                "type": "text",
+                                                "label": "客戶等級 (F)"
+                                            },
+                                            {
+                                                "name": "6",
+                                                "type": "text",
+                                                "label": "商品種類數 (G)"
+                                            },
+                                            {
+                                                "name": "7",
+                                                "type": "text",
+                                                "label": "商品總杯數 (H)"
+                                            },
+                                            {
+                                                "name": "8",
+                                                "type": "text",
+                                                "label": "訂單總金額 (I)"
+                                            },
+                                            {
+                                                "name": "9",
+                                                "type": "text",
+                                                "label": "平均單價 (J)"
+                                            },
+                                            {
+                                                "name": "10",
+                                                "type": "text",
+                                                "label": "商品分類 (K)"
+                                            },
+                                            {
+                                                "name": "11",
+                                                "type": "text",
+                                                "label": "商品明細 (L)"
+                                            },
+                                            {
+                                                "name": "12",
+                                                "type": "text",
+                                                "label": "冰塊偏好 (M)"
+                                            },
+                                            {
+                                                "name": "13",
+                                                "type": "text",
+                                                "label": "甜度偏好 (N)"
+                                            },
+                                            {
+                                                "name": "14",
+                                                "type": "text",
+                                                "label": "第一商品 (O)"
+                                            },
+                                            {
+                                                "name": "15",
+                                                "type": "text",
+                                                "label": "訂單摘要 (P)"
+                                            },
+                                            {
+                                                "name": "16",
+                                                "type": "text",
+                                                "label": "(Q)"
+                                            },
+                                            {
+                                                "name": "17",
+                                                "type": "text",
+                                                "label": "(R)"
+                                            },
+                                            {
+                                                "name": "18",
+                                                "type": "text",
+                                                "label": "(S)"
+                                            },
+                                            {
+                                                "name": "19",
+                                                "type": "text",
+                                                "label": "(T)"
+                                            },
+                                            {
+                                                "name": "20",
+                                                "type": "text",
+                                                "label": "(U)"
+                                            },
+                                            {
+                                                "name": "21",
+                                                "type": "text",
+                                                "label": "(V)"
+                                            },
+                                            {
+                                                "name": "22",
+                                                "type": "text",
+                                                "label": "(W)"
+                                            },
+                                            {
+                                                "name": "23",
+                                                "type": "text",
+                                                "label": "(X)"
+                                            },
+                                            {
+                                                "name": "24",
+                                                "type": "text",
+                                                "label": "(Y)"
+                                            },
+                                            {
+                                                "name": "25",
+                                                "type": "text",
+                                                "label": "(Z)"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Values"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 8,
+                            "module": "gemini-ai:createACompletionGeminiPro",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 4753999
+                            },
+                            "filter": {
+                                "name": "AI回信",
+                                "conditions": []
+                            },
+                            "mapper": {
+                                "model": "gemini-2.5-flash",
+                                "contents": [
+                                    {
+                                        "role": "user",
+                                        "parts": [
+                                            {
+                                                "text": "你是享哥哥手搖飲店的專業 AI 客服助理。請為以下訂單生成個性化的 HTML 確認郵件：\\n\\n=== 客戶資訊 ===\\n姓名：{{1.customerName}} ({{1.customerTier}} 會員)\\n訂單編號：{{1.orderId}}\\n訂購時間：{{1.orderTime}}\\n聯絡電話：{{1.phone}}\\n電子郵件：{{1.email}}\\n\\n=== 訂單統計 ===\\n{{1.orderSummary}}\\n平均單價：NT$ {{1.avgPrice}}\\n客戶等級：{{1.customerTier}}\\n\\n=== 商品明細 ===\\n{{1.itemsDetail}}\\n\\n=== 商品分類 ===\\n{{1.categoryList}}\\n\\n=== 客戶偏好 ===\\n冰塊偏好：{{1.icePreference}}\\n甜度偏好：{{1.sugarPreference}}\\n\\n=== 生成要求 ===\\n1. 🎨 使用享哥哥手搖飲品牌設計 (藍色#74b9ff, 橙色#fdcb6e)\\n2. � 響應式 HTML，包M含完整 CSS\\n3. 😊 根據客戶等級 ({{1.customerTier}}) 調整問候語\\n4. 🎯 根據商品分類推薦相關商品\\n5. 💎 為 {{1.customerTier}} 會員提供專屬優惠資訊\\n6. ⏰ 預計準備時間：15-20分鐘\\n7. 📍 包含店家資訊和聯絡方式\\n8. � 溫暖專業的台灣用語風用格，體現享哥哥的親切服務\\n9. 🍯 根據偏好 ({{1.icePreference}}/{{1.sugarPreference}}) 給予個性化建議\\n\\n=== 特殊指示 ===\\n- 如果是VIP會員，強調專屬服務和優惠\\n- 如果訂購多種分類，讚美客戶的多元品味\\n- 根據冰塊和甜度偏好推薦應景商品\\n- 使用訂單摘要 \\\"{{1.orderSummary}}\\\" 作為重點展示\\n- 體現享哥哥手搖飲的品牌特色：親切、用心、品質\\n\\n，請直接回傳完整的 HTML 郵件內容，包含適當的 CSS 樣式，不要有其他文字或說明，前後也不要加任何東西，不要加上任何解釋或格式化符號（例如 ```），也不要換行。",
+                                                "type": "text"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "generationConfig": {
+                                    "thinkingConfig": {}
+                                },
+                                "system_instruction": {}
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 600,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "model": {
+                                            "mode": "chose",
+                                            "label": "Gemini 2.5 Flash"
+                                        },
+                                        "contents": {
+                                            "mode": "chose",
+                                            "items": [
+                                                {
+                                                    "role": {
+                                                        "mode": "chose",
+                                                        "label": "User"
+                                                    },
+                                                    "parts": {
+                                                        "mode": "chose",
+                                                        "items": [
+                                                            {
+                                                                "type": {
+                                                                    "mode": "chose",
+                                                                    "label": "Text"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "safetySettings": {
+                                            "mode": "chose"
+                                        },
+                                        "generationConfig": {
+                                            "nested": {
+                                                "stopSequences": {
+                                                    "mode": "chose"
+                                                },
+                                                "thinkingConfig": {
+                                                    "nested": {
+                                                        "include_thoughts": {
+                                                            "mode": "chose"
+                                                        }
+                                                    }
+                                                },
+                                                "responseMimeType": {
+                                                    "mode": "chose",
+                                                    "label": "Empty"
+                                                },
+                                                "responseModalities": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        },
+                                        "system_instruction": {
+                                            "nested": {
+                                                "parts": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "gemini-ai-q9zyjp"
+                                            },
+                                            "label": "n8n"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:gemini-ai-q9zyjp",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "model",
+                                        "type": "select",
+                                        "label": "AI Model",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "contents",
+                                        "spec": [
+                                            {
+                                                "name": "role",
+                                                "type": "select",
+                                                "label": "Role",
+                                                "options": [
+                                                    {
+                                                        "label": "User",
+                                                        "value": "user"
+                                                    },
+                                                    {
+                                                        "label": "Model",
+                                                        "value": "model"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "parts",
+                                                "spec": [
+                                                    {
+                                                        "name": "type",
+                                                        "type": "select",
+                                                        "label": "Message Type",
+                                                        "options": [
+                                                            {
+                                                                "label": "Text",
+                                                                "value": "text",
+                                                                "nested": [
+                                                                    {
+                                                                        "name": "text",
+                                                                        "type": "text",
+                                                                        "label": "Text",
+                                                                        "required": false
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "label": "File",
+                                                                "value": "file",
+                                                                "nested": [
+                                                                    {
+                                                                        "name": "file_data",
+                                                                        "spec": [
+                                                                            {
+                                                                                "name": "mime_type",
+                                                                                "type": "text",
+                                                                                "label": "Mime Type",
+                                                                                "required": false
+                                                                            },
+                                                                            {
+                                                                                "help": "You get this from the 'Upload a File' module.",
+                                                                                "name": "file_uri",
+                                                                                "type": "text",
+                                                                                "label": "File URI",
+                                                                                "required": false
+                                                                            }
+                                                                        ],
+                                                                        "type": "collection",
+                                                                        "label": "File Data",
+                                                                        "required": false
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "type": "array",
+                                                "label": "Parts"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Messages",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "system_instruction",
+                                        "spec": [
+                                            {
+                                                "name": "parts",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "spec": [
+                                                        {
+                                                            "name": "text",
+                                                            "type": "text",
+                                                            "label": "Value"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Prompt"
+                                                },
+                                                "type": "array",
+                                                "label": "Prompts"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "System Instructions"
+                                    },
+                                    {
+                                        "name": "safetySettings",
+                                        "spec": [
+                                            {
+                                                "name": "category",
+                                                "type": "select",
+                                                "label": "Category",
+                                                "options": [
+                                                    {
+                                                        "label": "Harassment content",
+                                                        "value": "HARM_CATEGORY_HARASSMENT"
+                                                    },
+                                                    {
+                                                        "label": "Hate speech and content",
+                                                        "value": "HARM_CATEGORY_HATE_SPEECH"
+                                                    },
+                                                    {
+                                                        "label": "Sexually explicit content.",
+                                                        "value": "HARM_CATEGORY_SEXUALLY_EXPLICIT"
+                                                    },
+                                                    {
+                                                        "label": "Dangerous content:",
+                                                        "value": "HARM_CATEGORY_DANGEROUS_CONTENT"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "threshold",
+                                                "type": "select",
+                                                "label": "Threshold",
+                                                "options": [
+                                                    {
+                                                        "label": "Block low and above.",
+                                                        "value": "BLOCK_LOW_AND_ABOVE"
+                                                    },
+                                                    {
+                                                        "label": "Block medium and above.",
+                                                        "value": "BLOCK_MEDIUM_AND_ABOVE"
+                                                    },
+                                                    {
+                                                        "label": "Block only high.",
+                                                        "value": "BLOCK_ONLY_HIGH"
+                                                    },
+                                                    {
+                                                        "label": "Block none.",
+                                                        "value": "BLOCK_NONE"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Safety Settings"
+                                    },
+                                    {
+                                        "name": "generationConfig",
+                                        "spec": [
+                                            {
+                                                "name": "stopSequences",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Stop Sequence"
+                                                },
+                                                "type": "array",
+                                                "label": "Stop Sequences"
+                                            },
+                                            {
+                                                "name": "responseModalities",
+                                                "type": "select",
+                                                "label": "Response Modalities",
+                                                "multiple": true,
+                                                "validate": {
+                                                    "enum": [
+                                                        "text",
+                                                        "image"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "maxOutputTokens",
+                                                "type": "number",
+                                                "label": "Max Output Tokens"
+                                            },
+                                            {
+                                                "name": "temperature",
+                                                "type": "number",
+                                                "label": "Temperature",
+                                                "validate": {
+                                                    "max": 1,
+                                                    "min": 0
+                                                }
+                                            },
+                                            {
+                                                "name": "topP",
+                                                "type": "number",
+                                                "label": "Top P",
+                                                "validate": {
+                                                    "max": 1,
+                                                    "min": 0
+                                                }
+                                            },
+                                            {
+                                                "name": "topK",
+                                                "type": "number",
+                                                "label": "Top K"
+                                            },
+                                            {
+                                                "name": "thinkingConfig",
+                                                "spec": [
+                                                    {
+                                                        "name": "thinkingBudget",
+                                                        "type": "number",
+                                                        "label": "Thinking Budget"
+                                                    },
+                                                    {
+                                                        "name": "include_thoughts",
+                                                        "type": "boolean",
+                                                        "label": "Include Thoughts"
+                                                    }
+                                                ],
+                                                "type": "collection",
+                                                "label": "Thinking Config"
+                                            },
+                                            {
+                                                "name": "responseMimeType",
+                                                "type": "select",
+                                                "label": "Response Mime Type"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Generation configurations"
+                                    },
+                                    {
+                                        "name": "tools",
+                                        "type": "any",
+                                        "label": "Tools"
+                                    },
+                                    {
+                                        "name": "tool_config",
+                                        "type": "any",
+                                        "label": "Tool Config"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "module": "google-email:ActionSendEmail",
+                            "version": 2,
+                            "parameters": {
+                                "account": 5225206
+                            },
+                            "mapper": {
+                                "cc": [],
+                                "to": [
+                                    "{{1.email}}"
+                                ],
+                                "bcc": [],
+                                "from": "",
+                                "html": "{{8.candidates[].content.parts[].text}}",
+                                "subject": "CoCo 訂單確認 - 訂單編號: {{1.orderId}}",
+                                "attachments": []
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "account": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-restricted"
+                                            },
+                                            "label": "My Google Restricted connection (chengyunm1313@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "account",
+                                        "type": "account:google-restricted",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "from",
+                                        "type": "text",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "html",
+                                        "type": "text",
+                                        "label": "Content"
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": [
+                                            {
+                                                "name": "fileName",
+                                                "type": "filename",
+                                                "label": "File name",
+                                                "required": true,
+                                                "semantic": "file:name"
+                                            },
+                                            {
+                                                "name": "data",
+                                                "type": "buffer",
+                                                "label": "Data",
+                                                "required": true,
+                                                "semantic": "file:data"
+                                            },
+                                            {
+                                                "name": "cid",
+                                                "type": "text",
+                                                "label": "Content-ID"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Copy recipient"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Blind copy recipient"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
